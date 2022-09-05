@@ -15,6 +15,7 @@ BaselineOfAVLTree >> baseline: spec [
 
 		"Packages"
 		spec package: 'AVL-Tree'.
+		spec package: 'AVL-Tree-Tests' with: [ spec requires: #( 'AVL-Tree' )].
 		
 		"Define groups"
 		spec
