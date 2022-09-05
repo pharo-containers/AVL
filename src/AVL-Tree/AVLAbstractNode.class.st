@@ -2,35 +2,35 @@
 Abstract class to use nil pattern
 "
 Class {
-	#name : #RSAVLAbstractNode,
+	#name : #AVLAbstractNode,
 	#superclass : #Object,
-	#category : #AVL
+	#category : #'AVL-Tree'
 }
 
 { #category : #accessing }
-RSAVLAbstractNode >> children [
+AVLAbstractNode >> children [
 	^ {  }
 ]
 
 { #category : #enumerating }
-RSAVLAbstractNode >> do: aBlock [
+AVLAbstractNode >> do: aBlock [
 ]
 
 { #category : #accessing }
-RSAVLAbstractNode >> height [
+AVLAbstractNode >> height [
 	^ 0
 ]
 
 { #category : #testing }
-RSAVLAbstractNode >> isBalanced [
+AVLAbstractNode >> isBalanced [
 	^ true
 ]
 
 { #category : #testing }
-RSAVLAbstractNode >> isNilNode [
+AVLAbstractNode >> isNilNode [
 	^ false
 ]
 
 { #category : #accessing }
-RSAVLAbstractNode >> withAllChildren: aCollection [ 
+AVLAbstractNode >> withAllChildren: aCollection [ 
 ]

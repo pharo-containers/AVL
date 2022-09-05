@@ -2,18 +2,18 @@
 AVL to check rotations
 "
 Class {
-	#name : #RSAVL,
+	#name : #AVLTree,
 	#superclass : #Collection,
 	#instVars : [
 		'root'
 	],
-	#category : #AVL
+	#category : #'AVL-Tree'
 }
 
 { #category : #adding }
-RSAVL >> add: newObject [ 
+AVLTree >> add: newObject [ 
 	root isNilNode
-		ifTrue: [ root := RSAVLNode with: newObject ]
+		ifTrue: [ root := AVLNode with: newObject ]
 		ifFalse: [ | path |
 			path := OrderedCollection with: nil -> root.
 			root add: newObject path: path.
@@ -22,7 +22,7 @@ RSAVL >> add: newObject [
 ]
 
 { #category : #accessing }
-RSAVL >> allChildren [
+AVLTree >> allChildren [
 	| list |
 	list := OrderedCollection new.
 	self root withAllChildren: list.
@@ -30,7 +30,7 @@ RSAVL >> allChildren [
 ]
 
 { #category : #private }
-RSAVL >> balance: index path: aCollection [ 
+AVLTree >> balance: index path: aCollection [ 
 	| x y z a b c |
 	z := aCollection at: index.
 	y := aCollection at: index + 1.
@@ -50,7 +50,7 @@ RSAVL >> balance: index path: aCollection [
 ]
 
 { #category : #private }
-RSAVL >> checkPath: aCollection [ 
+AVLTree >> checkPath: aCollection [ 
 	aCollection size < 3 ifTrue: [ ^ self ].
 	(1 to: aCollection size - 2) reverseDo: [ :index |
 		| assoc |
@@ -59,51 +59,51 @@ RSAVL >> checkPath: aCollection [
 ]
 
 { #category : #enumerating }
-RSAVL >> do: aBlock [ 
+AVLTree >> do: aBlock [ 
 	root do: aBlock
 ]
 
 { #category : #public }
-RSAVL >> height [
+AVLTree >> height [
 	^ root height
 ]
 
 { #category : #testing }
-RSAVL >> includes: anObject [
+AVLTree >> includes: anObject [
 	anObject ifNil: [ ^ nil ].
 	^ (self search: anObject) notNil
 ]
 
 { #category : #initialization }
-RSAVL >> initialize [
+AVLTree >> initialize [
 	super initialize.
-	root := RSAVLNilNode new.
+	root := AVLNilNode new.
 ]
 
 { #category : #testing }
-RSAVL >> isBalanced [
+AVLTree >> isBalanced [
 	^ root isBalanced
 ]
 
 { #category : #private }
-RSAVL >> llrotationZ: z y: y x: x [ 
+AVLTree >> llrotationZ: z y: y x: x [ 
 	| a3 a4 new |
 	a3 := y right.
 	a4 := z right.
 	
-	new := RSAVLNode with: z contents.
+	new := AVLNode with: z contents.
 	new left: a3; right: a4.
 	z left: x; contents: y contents; right: new.
 	
 ]
 
 { #category : #private }
-RSAVL >> lrrotationZ: z y: y x: x [ 
+AVLTree >> lrrotationZ: z y: y x: x [ 
 	| a1 a2 a3 new |
 	a1 := y left.
 	a2 := x left.
 	a3 := x right.
-	new := RSAVLNode with: y contents.
+	new := AVLNode with: y contents.
 	new left: a1; right: a2.
 	y contents: x contents; left: new; right: a3.
 	
@@ -111,42 +111,42 @@ RSAVL >> lrrotationZ: z y: y x: x [
 ]
 
 { #category : #removing }
-RSAVL >> remove: oldObject ifAbsent: anExceptionBlock [ 
+AVLTree >> remove: oldObject ifAbsent: anExceptionBlock [ 
 	^ root remove: oldObject ifAbsent: anExceptionBlock
 ]
 
 { #category : #private }
-RSAVL >> rlrotationZ: z y: y x: x [ 
+AVLTree >> rlrotationZ: z y: y x: x [ 
 	| a1 a2 a3 a4 new |
 	a1 := z left.
 	a2 := x left.
 	a3 := x right.
 	a4 := y right.
-	new := RSAVLNode with: y contents.
+	new := AVLNode with: y contents.
 	new left: a3; right: a4.
 	y contents: x contents; left: a2; right: new.
 	self rrrotationZ: z y: y x: new
 ]
 
 { #category : #accessing }
-RSAVL >> root [
+AVLTree >> root [
 	^ root
 ]
 
 { #category : #private }
-RSAVL >> rrrotationZ: z y: y x: x [
+AVLTree >> rrrotationZ: z y: y x: x [
 	"right right rotation"
 	| a1 a2 new |
 	a1 := z left.
 	a2 := y left.
 	
-	new := RSAVLNode with: z contents.
+	new := AVLNode with: z contents.
 	new left: a1; right: a2.
 	z left: new; right: x; contents: y contents
 	
 ]
 
 { #category : #search }
-RSAVL >> search: anInteger [ 
+AVLTree >> search: anInteger [ 
 	^ root search: anInteger
 ]

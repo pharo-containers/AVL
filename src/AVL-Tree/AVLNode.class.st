@@ -2,25 +2,25 @@
 Real node for AVL tree
 "
 Class {
-	#name : #RSAVLNode,
-	#superclass : #RSAVLAbstractNode,
+	#name : #AVLNode,
+	#superclass : #AVLAbstractNode,
 	#instVars : [
 		'left',
 		'contents',
 		'right'
 	],
-	#category : #AVL
+	#category : #'AVL-Tree'
 }
 
 { #category : #'instance creation' }
-RSAVLNode class >> with: anInteger [ 
+AVLNode class >> with: anInteger [ 
 	^ self new
 		contents: anInteger;
 		yourself
 ]
 
 { #category : #adding }
-RSAVLNode >> add: anInteger path: list [
+AVLNode >> add: anInteger path: list [
 	anInteger < contents  ifTrue: [ 
 		left 
 			ifNil: [ 
@@ -41,35 +41,35 @@ RSAVLNode >> add: anInteger path: list [
 ]
 
 { #category : #accessing }
-RSAVLNode >> children [
+AVLNode >> children [
 	^ { left. right } reject: #isNil
 ]
 
 { #category : #enumerating }
-RSAVLNode >> childrenDo: aFullBlockClosure [ 
+AVLNode >> childrenDo: aFullBlockClosure [ 
 	left ifNotNil: aFullBlockClosure.
 	right ifNotNil: aFullBlockClosure.
 ]
 
 { #category : #accessing }
-RSAVLNode >> contents [
+AVLNode >> contents [
 	^ contents
 ]
 
 { #category : #accessing }
-RSAVLNode >> contents: anInteger [ 
+AVLNode >> contents: anInteger [ 
 	contents := anInteger
 ]
 
 { #category : #enumerating }
-RSAVLNode >> do: aFullBlockClosure [ 
+AVLNode >> do: aFullBlockClosure [ 
 	left ifNotNil: [ left do: aFullBlockClosure ].
 	aFullBlockClosure value: self contents.
 	right ifNotNil: [ right do: aFullBlockClosure ].
 ]
 
 { #category : #accessing }
-RSAVLNode >> height [
+AVLNode >> height [
 	| leftHeight rightHeight |
 	leftHeight := left ifNil: [ 0 ] ifNotNil: [ left height ].
 	rightHeight := right ifNil: [ 0 ] ifNotNil: [ right height ].
@@ -78,7 +78,7 @@ RSAVLNode >> height [
 ]
 
 { #category : #testing }
-RSAVLNode >> isBalanced [
+AVLNode >> isBalanced [
 	| leftHeight rightHeight |
 	leftHeight := left ifNil: [ 0 ] ifNotNil: [ left height ].
 	rightHeight := right ifNil: [ 0 ] ifNotNil: [ right height ].
@@ -87,37 +87,37 @@ RSAVLNode >> isBalanced [
 ]
 
 { #category : #testing }
-RSAVLNode >> isLeaf [
+AVLNode >> isLeaf [
 	^ left isNil and: [ right isNil ]
 ]
 
 { #category : #accessing }
-RSAVLNode >> left [
+AVLNode >> left [
 	^ left
 ]
 
 { #category : #accessing }
-RSAVLNode >> left: aNode [ 
+AVLNode >> left: aNode [ 
 	left := aNode
 ]
 
 { #category : #printing }
-RSAVLNode >> printOn: stream [
+AVLNode >> printOn: stream [
 	contents printOn: stream
 ]
 
 { #category : #accessing }
-RSAVLNode >> right [
+AVLNode >> right [
 	^ right
 ]
 
 { #category : #accessing }
-RSAVLNode >> right: anObject [ 
+AVLNode >> right: anObject [ 
 	right := anObject
 ]
 
 { #category : #search }
-RSAVLNode >> search: anInteger [ 
+AVLNode >> search: anInteger [ 
 	^ contents = anInteger ifTrue: [
 		contents
 	] ifFalse: [
@@ -130,7 +130,7 @@ RSAVLNode >> search: anInteger [
 ]
 
 { #category : #accessing }
-RSAVLNode >> withAllChildren: aCollection [ 
+AVLNode >> withAllChildren: aCollection [ 
 	aCollection add: self.
 	self childrenDo: [ :child | child withAllChildren: aCollection ]
 ]

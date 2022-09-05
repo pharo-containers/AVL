@@ -2,15 +2,15 @@
 An AVLTest is a test class for testing the behavior of AVL
 "
 Class {
-	#name : #RSAVLTest,
+	#name : #AVLTreeTest,
 	#superclass : #TestCase,
-	#category : #AVL
+	#category : #'AVL-Tree-Tests'
 }
 
 { #category : #tests }
-RSAVLTest >> testAddForLLrotation [
+AVLTreeTest >> testAddForLLrotation [
 	| tree data |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	tree add: 3.
 	self assert: tree isBalanced.
 	tree add: 2.
@@ -23,9 +23,9 @@ RSAVLTest >> testAddForLLrotation [
 ]
 
 { #category : #tests }
-RSAVLTest >> testAddForRRrotation [
+AVLTreeTest >> testAddForRRrotation [
 	| tree data |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	tree add: 1.
 	self assert: tree isBalanced.
 	tree add: 2.
@@ -38,9 +38,9 @@ RSAVLTest >> testAddForRRrotation [
 ]
 
 { #category : #tests }
-RSAVLTest >> testAddOneElement [
+AVLTreeTest >> testAddOneElement [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	tree add: 1.
 	self assert: tree isNotEmpty.
 	self assert: (tree includes: 1).
@@ -48,9 +48,9 @@ RSAVLTest >> testAddOneElement [
 ]
 
 { #category : #tests }
-RSAVLTest >> testAddTreeElements [
+AVLTreeTest >> testAddTreeElements [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	tree addAll: { 2. 4. 10 }.
 	self assert: (tree includes: 2).
 	self assert: (tree includes: 4).
@@ -59,29 +59,29 @@ RSAVLTest >> testAddTreeElements [
 ]
 
 { #category : #tests }
-RSAVLTest >> testAllChildren [
+AVLTreeTest >> testAllChildren [
 	| tree allChildren |
-	tree := tree := RSAVL new.
+	tree := tree := AVLTree new.
 	allChildren := tree allChildren.
 	self assert: allChildren isEmpty.
 	tree addAll: { 4. 2. 3. 10 }.
 	allChildren := tree allChildren.
 	self assert: allChildren size equals: 4.
-	self assert: allChildren first class equals: RSAVLNode
+	self assert: allChildren first class equals: AVLNode
 
 ]
 
 { #category : #tests }
-RSAVLTest >> testEmpty [
+AVLTreeTest >> testEmpty [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	self assert: tree isEmpty.
 ]
 
 { #category : #tests }
-RSAVLTest >> testHeight [
+AVLTreeTest >> testHeight [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	self assert: tree height equals: 0.
 	tree add: 4.
 	self assert: tree height equals: 1.
@@ -93,9 +93,9 @@ RSAVLTest >> testHeight [
 ]
 
 { #category : #tests }
-RSAVLTest >> testIsBalanced [
+AVLTreeTest >> testIsBalanced [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	self assert: tree isBalanced.
 	tree add: 4.
 	self assert: tree isBalanced.
@@ -106,18 +106,18 @@ RSAVLTest >> testIsBalanced [
 ]
 
 { #category : #tests }
-RSAVLTest >> testIsLeaf [
+AVLTreeTest >> testIsLeaf [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	self assert: tree root isNilNode.
 	tree add: 1.
 	self assert: tree root isLeaf.
 ]
 
 { #category : #tests }
-RSAVLTest >> testSearch [
+AVLTreeTest >> testSearch [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	tree addAll: { 4. 2. 3. 10 }.
 	self assert: (tree search: 5) isNil.
 	self assert: (tree search: 4) equals: 4.
@@ -126,9 +126,9 @@ RSAVLTest >> testSearch [
 ]
 
 { #category : #tests }
-RSAVLTest >> testSeriousAdd [
+AVLTreeTest >> testSeriousAdd [
 	| tree |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	tree addAll: { 9. 4. 16. 7. 13. 19. 15 }.
 	self assert: tree isBalanced.
 	tree add: 10.
@@ -138,9 +138,9 @@ RSAVLTest >> testSeriousAdd [
 ]
 
 { #category : #tests }
-RSAVLTest >> testSeriousRandomAdd [
+AVLTreeTest >> testSeriousRandomAdd [
 	| tree r size numbers |
-	tree := RSAVL new.
+	tree := AVLTree new.
 	r := Random new.
 	r seed: 1234.
 	size := 50.
