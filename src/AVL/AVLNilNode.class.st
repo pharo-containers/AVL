@@ -2,12 +2,12 @@
 Nil node for empty AVL
 "
 Class {
-	#name : #RSAVLNilNode,
-	#superclass : #RSAVLAbstractNode,
+	#name : #AVLNilNode,
+	#superclass : #AVLAbstractNode,
 	#category : #AVL
 }
 
 { #category : #testing }
-RSAVLNilNode >> isNilNode [
+AVLNilNode >> isNilNode [
 	^ true
 ]
