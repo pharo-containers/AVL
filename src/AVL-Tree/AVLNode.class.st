@@ -91,6 +91,24 @@ AVLNode >> isLeaf [
 	^ left isNil and: [ right isNil ]
 ]
 
+{ #category : #testing }
+AVLNode >> isTotalBalanced [
+	^ self isBalanced 
+		and: [ (left isNil or: [ left isTotalBalanced ]) 
+			and: [ right isNil or: [ right isTotalBalanced ] ] ]
+		
+		
+]
+
+{ #category : #accessing }
+AVLNode >> largerNode [
+	| size1 size2 isLeft |
+	size1 := left ifNil: [ 0 ] ifNotNil: [ left height ].
+	size2 := right ifNil: [ 0 ] ifNotNil: [ right height ].
+	isLeft := size1 > size2.
+	^ isLeft not -> (isLeft ifTrue: [ left ] ifFalse: [ right ])
+]
+
 { #category : #accessing }
 AVLNode >> left [
 	^ left
@@ -104,6 +122,46 @@ AVLNode >> left: aNode [
 { #category : #printing }
 AVLNode >> printOn: stream [
 	contents printOn: stream
+]
+
+{ #category : #removing }
+AVLNode >> remove: anObject path: list [
+	contents = anObject ifTrue: [
+		^ self
+	] ifFalse: [ 
+		| node nodeToRemove isLeft |
+		node := (isLeft := anObject < contents)
+			ifTrue: [ left ]
+			ifFalse: [ right ].
+		node ifNil: [ ^ nil ].
+		list add: self.
+		nodeToRemove := node remove: anObject path: list.
+		nodeToRemove == node ifTrue: [
+			| successor |
+			successor := node successor: list.
+			isLeft 
+				ifTrue: [ left := successor ]
+				ifFalse: [ right := successor ]
+		] .
+		^ nodeToRemove
+	].
+]
+
+{ #category : #removing }
+AVLNode >> removeMinimum: list [
+	| res |
+	left ifNil: [
+		res := self class with: contents.
+		contents := right contents.
+		left := right left.
+		right := right right ]
+	ifNotNil: [ 
+		list add: self.
+		left isLeaf ifTrue: [
+			res := left.
+			left := nil ]
+		ifFalse: [ res := left removeMinimum: list ] ].
+	^ res
 ]
 
 { #category : #accessing }
@@ -127,6 +185,27 @@ AVLNode >> search: anInteger [
 			ifFalse: [ right ].
 		node ifNil: [ nil ] ifNotNil: [ node search: anInteger ]
 	]
+]
+
+{ #category : #removing }
+AVLNode >> successor: list [
+	^ self isLeaf
+		ifTrue: [ nil ]
+		ifFalse: [ 
+			(left notNil and: [ right notNil ]) ifTrue: [ 
+				right isLeaf
+					ifTrue: [ list add: (right left: left; yourself) ]
+					ifFalse: [ | min newList |
+						newList := OrderedCollection new.
+						min := right removeMinimum: newList.
+						list add: min.
+						list addAll: newList.
+						min left: left.
+						min right: right.
+						right := min ]
+			] ifFalse: [ 
+				list add: (left ifNil: [ right ] ifNotNil: [ left ]) ] ].
+		
 ]
 
 { #category : #accessing }

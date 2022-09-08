@@ -1,7 +1,7 @@
-Extension { #name : #AVL }
+Extension { #name : #AVLTree }
 
-{ #category : #'*AVL-Inspector' }
-AVL >> createCanvas [
+{ #category : #'*AVL-Tree-Inspector' }
+AVLTree >> createCanvas [
 	| canvas children |
 	canvas := RSCanvas new.
 	children := self allChildren collect: [ :child | self createNode: child ].
@@ -17,8 +17,8 @@ AVL >> createCanvas [
 	^ canvas
 ]
 
-{ #category : #'*AVL-Inspector' }
-AVL >> createNode: node [ 
+{ #category : #'*AVL-Tree-Inspector' }
+AVLTree >> createNode: node [ 
 	| label w h back |
 	label := RSLabel new 
 		text: node contents asString;
@@ -41,8 +41,8 @@ AVL >> createNode: node [
 		yourself.
 ]
 
-{ #category : #'*AVL-Inspector' }
-AVL >> inspectorCanvas [
+{ #category : #'*AVL-Tree-Inspector' }
+AVLTree >> inspectorCanvas [
 	<inspectorPresentationOrder: 90 title: 'AVL'>
 	^ SpRoassal3InspectorPresenter new
 		canvas: self createCanvas;
