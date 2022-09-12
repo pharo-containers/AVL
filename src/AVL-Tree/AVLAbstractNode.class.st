@@ -31,6 +31,16 @@ AVLAbstractNode >> isNilNode [
 	^ false
 ]
 
+{ #category : #testing }
+AVLAbstractNode >> isTotalBalanced [
+	^ true
+]
+
+{ #category : #removing }
+AVLAbstractNode >> remove: anObject path: list [
+	^ nil
+]
+
 { #category : #accessing }
 AVLAbstractNode >> withAllChildren: aCollection [ 
 ]

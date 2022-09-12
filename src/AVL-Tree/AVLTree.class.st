@@ -50,12 +50,43 @@ AVLTree >> balance: index path: aCollection [
 ]
 
 { #category : #private }
+AVLTree >> balanceZ: z y: y x: x [
+	| a b c |
+	c := z value.
+	b := y value.
+	a := x value.
+	(y key and: [ x key ]) ifTrue: [ 
+		^ self rrrotationZ: c y: b x: a ].
+	(y key not and: [ x key not ]) ifTrue: [ 
+		^ self llrotationZ: c y: b x: a ].
+	(y key not and: [ x key ]) ifTrue: [ 
+		^ self lrrotationZ: c y: b x: a ].
+	"(y key and: [ x key not ])"
+	^ self rlrotationZ: c y: b x: a.
+	"self notYetImplemented."
+]
+
+{ #category : #private }
 AVLTree >> checkPath: aCollection [ 
 	aCollection size < 3 ifTrue: [ ^ self ].
 	(1 to: aCollection size - 2) reverseDo: [ :index |
 		| assoc |
 		assoc := aCollection at: index.
-		assoc value isBalanced ifFalse: [ ^ self balance: index path: aCollection ] ]
+		assoc value isBalanced ifFalse: [ | z y x |
+			z := aCollection at: index.
+			y := aCollection at: index + 1.
+			x := aCollection at: index + 2.
+			^ self balanceZ: z y: y x: x ] ]
+]
+
+{ #category : #private }
+AVLTree >> checkRemovingPath: path [
+	path reverseDo: [ :node | 
+		node isBalanced ifFalse: [ | z y x |
+			z := node.
+			y := z largerNode.
+			x := y value largerNode.
+			self balanceZ: node y: y x: x ] ].
 ]
 
 { #category : #enumerating }
@@ -85,6 +116,12 @@ AVLTree >> isBalanced [
 	^ root isBalanced
 ]
 
+{ #category : #testing }
+AVLTree >> isTotalBalanced [
+
+	^ root isTotalBalanced
+]
+
 { #category : #private }
 AVLTree >> llrotationZ: z y: y x: x [ 
 	| a3 a4 new |
@@ -111,8 +148,16 @@ AVLTree >> lrrotationZ: z y: y x: x [
 ]
 
 { #category : #removing }
-AVLTree >> remove: oldObject ifAbsent: anExceptionBlock [ 
-	^ root remove: oldObject ifAbsent: anExceptionBlock
+AVLTree >> remove: oldObject ifAbsent: anExceptionBlock [
+	| toRemove path |
+	path := OrderedCollection new.
+	toRemove := root remove: oldObject path: path.
+	toRemove ifNil: [ ^ anExceptionBlock value ].
+	toRemove == root ifTrue: [ 
+		root := root successor: path.
+		root ifNil: [ root := AVLNilNode new ] ].
+	self checkRemovingPath: path.
+	^ toRemove contents
 ]
 
 { #category : #private }
