@@ -7,9 +7,11 @@ Class {
 { #category : #tests }
 AVLTreeInspectorTest >> testCreateCanvas [
 
-	| tree canvas |
+	| tree presenter |
 	tree := tree := AVLTree new.
 	tree addAll: { 4. 2. 3. 10 }.
-	canvas := tree createCanvas.
-	self assert: canvas nodes size equals: tree size
+	
+	presenter := tree inspectorCanvas.
+	self assert: presenter isPresenter.
+	self assert: presenter canvas nodes size equals: tree size.
 ]
