@@ -7,6 +7,16 @@ Class {
 	#category : #'AVL-Tree'
 }
 
+{ #category : #adding }
+AVLAbstractNode >> addChild: newObject [
+	^ self subclassResponsibility
+]
+
+{ #category : #private }
+AVLAbstractNode >> checkRemovingPath: path [
+	self subclassResponsibility
+]
+
 { #category : #accessing }
 AVLAbstractNode >> children [
 	^ {  }
