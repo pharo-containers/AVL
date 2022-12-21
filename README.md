@@ -1,6 +1,6 @@
 # AVL
 
-AVL Tree migration from Roassal 3
+AVL Tree migration from Roassal 3. A work in progress since it should be packaged to follow project conventions.
 
 ## How to install it
 
