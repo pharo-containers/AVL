@@ -164,7 +164,8 @@ AVLTreeTest >> testRemoveBranchWithTwoChildren3 [
 	self assert: (tree includes: 20).
 	self assert: (tree includes: 14).
 	self assert: (tree includes: 16).
-	self assert: (tree includes: 17)
+	self assert: (tree includes: 17).
+	self assert: tree isBalanced
 ]
 
 { #category : #tests }
