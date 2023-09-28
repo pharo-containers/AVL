@@ -109,7 +109,15 @@ AVLTreeTest >> testIsLeaf [
 
 	self assert: tree root isNilNode.
 	tree add: 1.
-	self assert: tree root isLeaf
+	self assert: tree root isLeaf.
+	
+	tree add: 10.
+	self deny: tree root isLeaf.
+	
+	tree:= AVLTree new.
+	tree add: 10.
+	tree add: 5.
+	self deny: tree root isLeaf.
 ]
 
 { #category : #tests }
