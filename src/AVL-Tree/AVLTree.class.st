@@ -20,7 +20,7 @@ AVLTree >> add: newObject [
 AVLTree >> allChildren [
 	| list |
 	list := OrderedCollection new.
-	self root withAllChildren: list.
+	root withAllChildren: list.
 	^ list
 ]
 
@@ -51,6 +51,18 @@ AVLTree >> isBalanced [
 	^ root isBalanced
 ]
 
+{ #category : #search }
+AVLTree >> isLeaf [ 
+
+	^ root isLeaf 
+]
+
+{ #category : #search }
+AVLTree >> isNil [ 
+
+	^ root isNilNode  
+]
+
 { #category : #testing }
 AVLTree >> isTotalBalanced [
 
@@ -71,11 +83,6 @@ AVLTree >> remove: oldObject ifAbsent: anExceptionBlock [
 	
 	
 	^ toRemove contents
-]
-
-{ #category : #accessing }
-AVLTree >> root [
-	^ root
 ]
 
 { #category : #search }

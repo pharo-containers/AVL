@@ -107,17 +107,17 @@ AVLTreeTest >> testIsBalanced [
 { #category : #tests }
 AVLTreeTest >> testIsLeaf [
 
-	self assert: tree root isNilNode.
+	self assert: tree isNil.
 	tree add: 1.
-	self assert: tree root isLeaf.
+	self assert: tree isLeaf.
 	
 	tree add: 10.
-	self deny: tree root isLeaf.
+	self deny: tree isLeaf.
 	
 	tree:= AVLTree new.
 	tree add: 10.
 	tree add: 5.
-	self deny: tree root isLeaf.
+	self deny: tree isLeaf.
 ]
 
 { #category : #tests }
