@@ -258,6 +258,17 @@ AVLTreeTest >> testSeriousRandomAdd [
 ]
 
 { #category : #tests }
+AVLTreeTest >> testTree [
+	
+    |visualizer|
+    tree := AVLTree new.
+    visualizer := AVLTreeVisualizer new.
+    visualizer tree: tree.
+    
+    self assert: (visualizer tree) equals: tree.
+]
+
+{ #category : #tests }
 AVLTreeTest >> testSeriousRandomRemove [
 
 	| r size numbers toRemove |
