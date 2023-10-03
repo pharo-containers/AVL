@@ -272,4 +272,29 @@ AVLTreeTest >> testSeriousRandomRemove [
 	toRemove do: [ :number | 
 		tree remove: number.
 		self assert: tree isTotalBalanced ]
+] 
+
+{ #category : #tests }
+AVLTreeTest >> testDuplicateElement [
+    tree add: 42.
+    "Adding the same element again should maintain balance"
+    tree add: 42.
+    self assert: tree isBalanced.
+    "Removing one instance of the element should keep the other"
+    tree remove: 42.
+    self assert: (tree includes: 42).
+    tree remove: 42.
+    self assert: tree isEmpty ]
+
+{ #category : #tests }
+AVLTreeTest >> testLRRotation [
+    "Test LR rotation"
+|data|
+tree := AVLTree new.
+tree add: 1.
+tree add: 3.
+tree add: 2.
+self assert: tree isBalanced.
+data := tree collect: #yourself.
+self assert: data asArray equals: { 1. 2. 3 }.
 ]
