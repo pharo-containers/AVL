@@ -15,3 +15,15 @@ AVLTreeInspectorTest >> testCreateCanvas [
 	self assert: presenter isPresenter.
 	self assert: presenter canvas nodes size equals: tree size.
 ]
+
+
+{ #category : #tests }
+AVLTreeInspectorTest >> testTree [
+	
+    |visualizer|
+    tree := AVLTree new.
+    visualizer := AVLTreeVisualizer new.
+    visualizer tree: tree.
+    
+    self assert: (visualizer tree) equals: tree.
+]
