@@ -20,7 +20,7 @@ AVLTreeInspectorTest >> testCreateCanvas [
 { #category : 'tests' }
 AVLTreeInspectorTest >> testTree [
 	
-    |visualizer|
+    |visualizer tree |
     tree := AVLTree new.
     visualizer := AVLTreeVisualizer new.
     visualizer tree: tree.
