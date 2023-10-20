@@ -1,25 +1,40 @@
 "
-Real node for AVL tree
+AVLNode represents a node in an AVL tree.
+
+An AVL tree is a self-balancing binary search tree where the heights of the two child subtrees of every node differ by at most one. The `AVLNode` class extends the `AVLAbstractNode` class and provides the implementation of actual nodes within the AVL tree.
+
+AVLNode instances hold a `contents` instance variable. These nodes are organized in such a way that the tree remains balanced, ensuring efficient operations like insertion, deletion, and search.
+
+This class should not be used directly; instead use `AVLTree`.
+
+Instance Variables:
+- contents: The value associated with this node.
+- left: The left child node.
+- right: The right child node.
+
+Author: Milton Mamani
+Date: October 20, 2023
 "
 Class {
-	#name : #AVLNode,
-	#superclass : #AVLAbstractNode,
+	#name : 'AVLNode',
+	#superclass : 'AVLAbstractNode',
 	#instVars : [
 		'left',
 		'contents',
 		'right'
 	],
-	#category : #'AVL-Tree'
+	#category : 'AVL-Tree',
+	#package : 'AVL-Tree'
 }
 
-{ #category : #'instance creation' }
+{ #category : 'instance creation' }
 AVLNode class >> with: anInteger [ 
 	^ self new
 		contents: anInteger;
 		yourself
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AVLNode >> add: anInteger path: list [
 	anInteger < contents  ifTrue: [ 
 		left 
@@ -40,7 +55,7 @@ AVLNode >> add: anInteger path: list [
 	
 ]
 
-{ #category : #adding }
+{ #category : 'adding' }
 AVLNode >> addChild: newObject [
 	| path |
 	path := OrderedCollection with: nil -> self.
@@ -49,7 +64,7 @@ AVLNode >> addChild: newObject [
 	^ self
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> balance: index path: aCollection [ 
 	| x y z a b c |
 	z := aCollection at: index.
@@ -69,7 +84,7 @@ AVLNode >> balance: index path: aCollection [
 	"self notYetImplemented."
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> balanceZ: z y: y x: x [
 	| a b c |
 	c := z value.
@@ -86,7 +101,7 @@ AVLNode >> balanceZ: z y: y x: x [
 	"self notYetImplemented."
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> checkPath: aCollection [ 
 	aCollection size < 3 ifTrue: [ ^ self ].
 	(1 to: aCollection size - 2) reverseDo: [ :index |
@@ -99,7 +114,7 @@ AVLNode >> checkPath: aCollection [
 			^ self balanceZ: z y: y x: x ] ]
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> checkRemovingPath: path [
 	path reverseDo: [ :node | 
 		node isBalanced ifFalse: [ | z y x |
@@ -109,35 +124,35 @@ AVLNode >> checkRemovingPath: path [
 			self balanceZ: node y: y x: x ] ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> children [
 	^ { left. right } reject: #isNil
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AVLNode >> childrenDo: aFullBlockClosure [ 
 	left ifNotNil: aFullBlockClosure.
 	right ifNotNil: aFullBlockClosure.
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> contents [
 	^ contents
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> contents: anInteger [ 
 	contents := anInteger
 ]
 
-{ #category : #enumerating }
+{ #category : 'enumerating' }
 AVLNode >> do: aFullBlockClosure [ 
 	left ifNotNil: [ left do: aFullBlockClosure ].
 	aFullBlockClosure value: self contents.
 	right ifNotNil: [ right do: aFullBlockClosure ].
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> height [
 	| leftHeight rightHeight |
 	leftHeight := left ifNil: [ 0 ] ifNotNil: [ left height ].
@@ -146,7 +161,7 @@ AVLNode >> height [
 	
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AVLNode >> isBalanced [
 	| leftHeight rightHeight |
 	leftHeight := left ifNil: [ 0 ] ifNotNil: [ left height ].
@@ -155,12 +170,12 @@ AVLNode >> isBalanced [
 	^ (leftHeight - rightHeight) abs <= 1
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AVLNode >> isLeaf [
 	^ left isNil and: [ right isNil ]
 ]
 
-{ #category : #testing }
+{ #category : 'testing' }
 AVLNode >> isTotalBalanced [
 	^ self isBalanced 
 		and: [ (left isNil or: [ left isTotalBalanced ]) 
@@ -169,7 +184,7 @@ AVLNode >> isTotalBalanced [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> largerNode [
 	| size1 size2 isLeft |
 	size1 := left ifNil: [ 0 ] ifNotNil: [ left height ].
@@ -178,17 +193,17 @@ AVLNode >> largerNode [
 	^ isLeft not -> (isLeft ifTrue: [ left ] ifFalse: [ right ])
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> left [
 	^ left
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> left: aNode [ 
 	left := aNode
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> llrotationZ: z y: y x: x [ 
 	| a3 a4 new |
 	a3 := y right.
@@ -200,7 +215,7 @@ AVLNode >> llrotationZ: z y: y x: x [
 	
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> lrrotationZ: z y: y x: x [ 
 	| a1 a2 a3 new |
 	a1 := y left.
@@ -213,12 +228,12 @@ AVLNode >> lrrotationZ: z y: y x: x [
 	self llrotationZ: z y: y x: new
 ]
 
-{ #category : #printing }
+{ #category : 'printing' }
 AVLNode >> printOn: stream [
 	contents printOn: stream
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 AVLNode >> remove: anObject path: list [
 	contents = anObject ifTrue: [
 		^ self
@@ -241,7 +256,7 @@ AVLNode >> remove: anObject path: list [
 	].
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 AVLNode >> removeMinimum: list [
 	| res |
 	left ifNil: [
@@ -258,17 +273,17 @@ AVLNode >> removeMinimum: list [
 	^ res
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> right [
 	^ right
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> right: anObject [ 
 	right := anObject
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> rlrotationZ: z y: y x: x [ 
 	| a1 a2 a3 a4 new |
 	a1 := z left.
@@ -281,7 +296,7 @@ AVLNode >> rlrotationZ: z y: y x: x [
 	self rrrotationZ: z y: y x: new
 ]
 
-{ #category : #private }
+{ #category : 'private' }
 AVLNode >> rrrotationZ: z y: y x: x [
 	"right right rotation"
 	| a1 a2 new |
@@ -294,7 +309,7 @@ AVLNode >> rrrotationZ: z y: y x: x [
 	
 ]
 
-{ #category : #search }
+{ #category : 'search' }
 AVLNode >> search: anInteger [ 
 	^ contents = anInteger ifTrue: [
 		contents
@@ -307,7 +322,7 @@ AVLNode >> search: anInteger [
 	]
 ]
 
-{ #category : #removing }
+{ #category : 'removing' }
 AVLNode >> successor: list [
 	^ self isLeaf
 		ifTrue: [ nil ]
@@ -328,7 +343,7 @@ AVLNode >> successor: list [
 		
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLNode >> withAllChildren: aCollection [ 
 	aCollection add: self.
 	self childrenDo: [ :child | child withAllChildren: aCollection ]
