@@ -1,16 +1,17 @@
 "
-I create a visualization for the inspector
+A visualization for the inspector for AVLTree, it creates an inspector tab to visualize the nodes of the tree
 "
 Class {
-	#name : #AVLTreeVisualizer,
-	#superclass : #RSAbstractContainerBuilder,
+	#name : 'AVLTreeVisualizer',
+	#superclass : 'RSAbstractContainerBuilder',
 	#instVars : [
 		'tree'
 	],
-	#category : #'AVL-Tree-Inspector'
+	#category : 'AVL-Tree-Inspector',
+	#package : 'AVL-Tree-Inspector'
 }
 
-{ #category : #events }
+{ #category : 'events' }
 AVLTreeVisualizer >> addFindingPath: number [
 	| node path link |
 	node := (AVLTree >> #checkPath:) ast.
@@ -26,7 +27,7 @@ AVLTreeVisualizer >> addFindingPath: number [
 	
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 AVLTreeVisualizer >> addNewNumber [
 	| number |
 	number := self readNumber.
@@ -34,7 +35,7 @@ AVLTreeVisualizer >> addNewNumber [
 	self addWithAnimation: number
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 AVLTreeVisualizer >> addPlusButtom [
 	| label |
 	label := RSLabel new 
@@ -47,7 +48,7 @@ AVLTreeVisualizer >> addPlusButtom [
 	container add: label.
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 AVLTreeVisualizer >> addWithAnimation: number [
 	| path newNode root lastPosition |
 	path := self addFindingPath: number.
@@ -73,7 +74,7 @@ AVLTreeVisualizer >> addWithAnimation: number [
 	
 ]
 
-{ #category : #'*AVL-Tree-Inspector' }
+{ #category : 'private' }
 AVLTreeVisualizer >> createNode: node [ 
 	| label w h back |
 	label := RSLabel new 
@@ -97,12 +98,12 @@ AVLTreeVisualizer >> createNode: node [
 		yourself.
 ]
 
-{ #category : #'accessing - defaults' }
+{ #category : 'accessing - defaults' }
 AVLTreeVisualizer >> defaultContainer [
 	^ RSCanvas new @ RSCanvasController simple
 ]
 
-{ #category : #events }
+{ #category : 'events' }
 AVLTreeVisualizer >> readNumber [
 	| answer |
 	answer := UIManager default request: 'Enter a number:' initialAnswer: '4'.
@@ -113,7 +114,7 @@ AVLTreeVisualizer >> readNumber [
 	] onErrorDo: [ :ex | self inform: 'no number'. ^ nil ].
 ]
 
-{ #category : #hooks }
+{ #category : 'hooks' }
 AVLTreeVisualizer >> renderIn: aCanvas [
 	| children |
 	children := tree allChildren collect: [ :child | self createNode: child ].
@@ -127,12 +128,12 @@ AVLTreeVisualizer >> renderIn: aCanvas [
 	"self addPlusButtom"
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLTreeVisualizer >> tree [
 	^ tree
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 AVLTreeVisualizer >> tree: anAVLTree [
 	tree := anAVLTree
 ]

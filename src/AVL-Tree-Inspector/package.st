@@ -1,1 +1,1 @@
-Package { #name : #'AVL-Tree-Inspector' }
+Package { #name : 'AVL-Tree-Inspector' }
