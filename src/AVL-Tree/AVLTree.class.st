@@ -95,18 +95,18 @@ AVLTree >> isTotalBalanced [
 
 { #category : 'removing' }
 AVLTree >> remove: oldObject ifAbsent: anExceptionBlock [
-	| toRemove path |
-	path := OrderedCollection new.
-	toRemove := root remove: oldObject path: path.
-	toRemove ifNil: [ ^ anExceptionBlock value ].
-	
-	toRemove == root ifTrue: [ 
-		root := root successor: path.
-		root ifNil: [ root := AVLNilNode new ] ].
-	root checkRemovingPath: path.
-	
-	
-	^ toRemove contents
+    | toRemove path defaultBlock |
+    path := OrderedCollection new.
+    defaultBlock := anExceptionBlock ifNil: [ [ nil ] ].
+    toRemove := root remove: oldObject path: path.
+    toRemove ifNil: [ ^ defaultBlock value ].
+    
+    toRemove == root ifTrue: [ 
+        root := root successor: path.
+        root ifNil: [ root := AVLNilNode new ] ].
+    root checkRemovingPath: path.
+    
+    ^ toRemove contents
 ]
 
 { #category : 'search' }
