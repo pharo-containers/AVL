@@ -38,12 +38,14 @@ AVLTree >> add: newObject [
     ^ newObject
 ]
 
-{ #category : 'accessing' }
-AVLTree >> allChildren [
-	| list |
-	list := OrderedCollection new.
-	root withAllChildren: list.
-	^ list
+{ #category : #accessing }
+AVLTree >> size [
+	^ root isNilNode 
+		ifTrue: [ 0 ]
+		ifFalse: [ | count |
+			count := 0.
+			root do: [ :each | count := count + 1 ].
+			count ]
 ]
 
 { #category : 'enumerating' }
