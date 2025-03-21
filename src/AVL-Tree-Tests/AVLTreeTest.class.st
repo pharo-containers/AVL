@@ -329,3 +329,12 @@ AVLTreeTest >> testSizeAfterRemoval [
 	tree remove: 3.
 	self assert: tree size equals: 4
 ]
+
+{ #category : #tests }
+AVLTreeTest >> testRemoveFromEmptyTree [
+    | executed |
+    executed := false.
+    tree remove: 42 ifAbsent: [ executed := true ].
+    self assert: executed description: 'The ifAbsent: block should execute when removing from an empty tree'.
+    self assert: tree isEmpty description: 'Tree should remain empty after removal attempt'.
+]
