@@ -305,3 +305,27 @@ AVLTreeTest >> testAddNilRaisesError [
     self should: [ tree add: nil ] raise: Error withExceptionDo: [ :ex |
         self assert: ex messageText equals: 'Cannot add nil to AVLTree' ]
 ]
+
+{ #category : #tests }
+AVLTreeTest >> testSizeEmpty [
+	self assert: tree size equals: 0
+]
+
+{ #category : #tests }
+AVLTreeTest >> testSizeOneElement [
+	tree add: 42.
+	self assert: tree size equals: 1
+]
+
+{ #category : #tests }
+AVLTreeTest >> testSizeMultipleElements [
+	tree addAll: #(1 2 3 4 5).
+	self assert: tree size equals: 5
+]
+
+{ #category : #tests }
+AVLTreeTest >> testSizeAfterRemoval [
+	tree addAll: #(1 2 3 4 5).
+	tree remove: 3.
+	self assert: tree size equals: 4
+]
