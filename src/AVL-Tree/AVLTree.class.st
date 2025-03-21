@@ -31,10 +31,11 @@ Class {
 	#package : 'AVL-Tree'
 }
 
-{ #category : 'adding' }
-AVLTree >> add: newObject [ 
-	root := root addChild: newObject.
-	^ newObject
+{ #category : #adding }
+AVLTree >> add: newObject [
+    newObject ifNil: [ Error signal: 'Cannot add nil to AVLTree' ].
+    root := root addChild: newObject.
+    ^ newObject
 ]
 
 { #category : 'accessing' }

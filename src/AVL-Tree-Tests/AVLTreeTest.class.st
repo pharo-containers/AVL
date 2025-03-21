@@ -299,3 +299,9 @@ self assert: tree isBalanced.
 data := tree collect: #yourself.
 self assert: data asArray equals: { 1. 2. 3 }.
 ]
+
+{ #category : #tests }
+AVLTreeTest >> testAddNilRaisesError [
+    self should: [ tree add: nil ] raise: Error withExceptionDo: [ :ex |
+        self assert: ex messageText equals: 'Cannot add nil to AVLTree' ]
+]
